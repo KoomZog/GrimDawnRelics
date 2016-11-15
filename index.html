@@ -1,16 +1,23 @@
 <html>
   <head>
     <style>
-	    body {
-	    background-color: #555;
-	    }
-	    
+body {
+  background-color: #151515;
+}
+
+div.main {
+    position: relative;
+    top: 100px;
+    left: 200px;
+}
+
 .list {
   margin: 0;
   padding: 0;
   font-family: "verdana", "geneva", "lucida", "lucida grande", "arial", "helvetica", sans-serif;
   font-weight: bold;
   font-size: 12px;
+  line-height: 6px;
 }
 
 .relic {
@@ -35,69 +42,71 @@
     </style>
   </head>
   <body>
-    <select id="input">
-      <option>-- Select Relic  --</option>
-      <option>-- Common Relics --</option>
-      <option>Bladesworn Talisman</option>
-      <option>Calamity</option>
-      <option>Corruption</option>
-      <option>Equilibrium</option>
-      <option>Glacier</option>
-      <option>Guile</option>
-      <option>Gunslinger's Talisman</option>
-      <option>Inferno</option>
-      <option>Mistborn Talisman</option>
-      <option>Rampage</option>
-      <option>Ruination</option>
-      <option>Sanctuary</option>
-      <option>Squall</option>
-      <option>-- Rare Relics --</option>
-      <option>Arbiter</option>
-      <option>Conflagration</option>
-      <option>Deathchill</option>
-      <option>Fortress</option>
-      <option>Haunt</option>
-      <option>Juggernaut</option>
-      <option>Savage</option>
-      <option>Slaughter</option>
-      <option>Terror</option>
-      <option>Torment</option>
-      <option>-- Epic Relics --</option>
-      <option>Ancestor</option>
-      <option>Bladedancer's Talisman</option>
-      <option>Blight</option>
-      <option>Desolation</option>
-      <option>Marauder's Talisman</option>
-      <option>Sacrifice</option>
-      <option>Zeal</option>
-      <option>-- Legendary Relics --</option>
-      <option>Aegis</option>
-      <option>Agrivix's Malice</option>
-      <option>Annihilation</option>
-      <option>Avenger</option>
-      <option>Belgothian's Carnage</option>
-      <option>Blademaster's Talisman</option>
-      <option>Bysmiel's Domination</option>
-      <option>Citadel</option>
-      <option>Dreeg's Affliction</option>
-      <option>Eye of the Storm</option>
-      <option>Iskandra's Balance</option>
-      <option>Malediction</option>
-      <option>Menhir's Bastion</option>
-      <option>Necrosis</option>
-      <option>Nemesis</option>
-      <option>Oblivion</option>
-      <option>Oleron's Wrath</option>
-      <option>Plunderer's Talisman</option>
-      <option>Primal Instinct</option>
-      <option>Reckoning</option>
-      <option>Scourge</option>
-      <option>Solael's Decimation</option>
-      <option>Ulzuin's Pyroclasm</option>
-    </select>
-    <input type="submit" id="convertButton" value="List components" onclick="main()" />
-    <div id="output" class="list"></div>
-    <script>
+<div class="main">
+  <select id="input">
+    <option>Primal Instinct</option>
+    <option>-- Select Relic  --</option>
+    <option>-- Common Relics --</option>
+    <option>Bladesworn Talisman</option>
+    <option>Calamity</option>
+    <option>Corruption</option>
+    <option>Equilibrium</option>
+    <option>Glacier</option>
+    <option>Guile</option>
+    <option>Gunslinger's Talisman</option>
+    <option>Inferno</option>
+    <option>Mistborn Talisman</option>
+    <option>Rampage</option>
+    <option>Ruination</option>
+    <option>Sanctuary</option>
+    <option>Squall</option>
+    <option>-- Rare Relics --</option>
+    <option>Arbiter</option>
+    <option>Conflagration</option>
+    <option>Deathchill</option>
+    <option>Fortress</option>
+    <option>Haunt</option>
+    <option>Juggernaut</option>
+    <option>Savage</option>
+    <option>Slaughter</option>
+    <option>Terror</option>
+    <option>Torment</option>
+    <option>-- Epic Relics --</option>
+    <option>Ancestor</option>
+    <option>Bladedancer's Talisman</option>
+    <option>Blight</option>
+    <option>Desolation</option>
+    <option>Marauder's Talisman</option>
+    <option>Sacrifice</option>
+    <option>Zeal</option>
+    <option>-- Legendary Relics --</option>
+    <option>Aegis</option>
+    <option>Agrivix's Malice</option>
+    <option>Annihilation</option>
+    <option>Avenger</option>
+    <option>Belgothian's Carnage</option>
+    <option>Blademaster's Talisman</option>
+    <option>Bysmiel's Domination</option>
+    <option>Citadel</option>
+    <option>Dreeg's Affliction</option>
+    <option>Eye of the Storm</option>
+    <option>Iskandra's Balance</option>
+    <option>Malediction</option>
+    <option>Menhir's Bastion</option>
+    <option>Necrosis</option>
+    <option>Nemesis</option>
+    <option>Oblivion</option>
+    <option>Oleron's Wrath</option>
+    <option>Plunderer's Talisman</option>
+    <option>Primal Instinct</option>
+    <option>Reckoning</option>
+    <option>Scourge</option>
+    <option>Solael's Decimation</option>
+    <option>Ulzuin's Pyroclasm</option>
+  </select>
+  <input type="submit" id="convertButton" value="List components" onclick="main()" />
+  <div id="output" class="list"></div>
+</div><script>
 function main() {
   var input = document.getElementById('input').value;
   var componentsList = [];
