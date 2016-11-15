@@ -7,7 +7,7 @@ body {
 
 div.main {
     position: relative;
-    top: 100px;
+    top: 50px;
     left: 200px;
 }
 
@@ -44,7 +44,6 @@ div.main {
   <body>
 <div class="main">
   <select id="input">
-    <option>Primal Instinct</option>
     <option>-- Select Relic  --</option>
     <option>-- Common Relics --</option>
     <option>Bladesworn Talisman</option>
@@ -106,7 +105,11 @@ div.main {
   </select>
   <input type="submit" id="convertButton" value="List components" onclick="main()" />
   <div id="output" class="list"></div>
-</div><script>
+</div>
+<div class="list">
+  <br><br>
+</div>
+<script>
 function main() {
   var input = document.getElementById('input').value;
   var componentsList = [];
