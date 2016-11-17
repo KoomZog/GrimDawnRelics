@@ -1,7 +1,36 @@
+
+<!DOCTYPE html>
 <html>
-  <head>
-    <style>
-body {
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+
+  
+  
+
+  
+  
+  
+
+  
+
+  <script type="text/javascript" src="/js/lib/dummy.js"></script>
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+
+  
+
+  <style type="text/css">
+    body {
   background-color: #151515;
 }
 
@@ -17,7 +46,8 @@ div.main {
   font-family: "verdana", "geneva", "lucida", "lucida grande", "arial", "helvetica", sans-serif;
   font-weight: bold;
   font-size: 12px;
-  line-height: 6px;
+//  line-height: 6px;
+  color: #ffffff;
 }
 
 .relic {
@@ -39,85 +69,18 @@ div.main {
 .weapon {
   color: #00bc03;
 }
+  </style>
 
-.cost {
-  color: #ffffff;
-}
-    </style>
-  </head>
-  <body>
-<div class="main">
-  <p class="cost list">
-    Grim Dawn Relic Tool by KoomZog (c)2016
-  </p>
-  <br>
-  <select id="input">
-    <option>-- Select Relic  --</option>
-    <option>-- Empowered Relics --</option>
-    <option>Bladesworn Talisman</option>
-    <option>Calamity</option>
-    <option>Corruption</option>
-    <option>Equilibrium</option>
-    <option>Glacier</option>
-    <option>Guile</option>
-    <option>Gunslinger's Talisman</option>
-    <option>Inferno</option>
-    <option>Mistborn Talisman</option>
-    <option>Rampage</option>
-    <option>Ruination</option>
-    <option>Sanctuary</option>
-    <option>Squall</option>
-    <option>-- Transcendent Relics --</option>
-    <option>Ancestor</option>
-    <option>Arbiter</option>
-    <option>Bladedancer's Talisman</option>
-    <option>Blight</option>
-    <option>Conflagration</option>
-    <option>Deathchill</option>
-    <option>Desolation</option>
-    <option>Fortress</option>
-    <option>Haunt</option>
-    <option>Juggernaut</option>
-    <option>Marauder's Talisman</option>
-    <option>Sacrifice</option>
-    <option>Savage</option>
-    <option>Slaughter</option>
-    <option>Terror</option>
-    <option>Torment</option>
-    <option>Zeal</option>
-    <option>-- Mythical Relics --</option>
-    <option>Aegis</option>
-    <option>Agrivix's Malice</option>
-    <option>Annihilation</option>
-    <option>Avenger</option>
-    <option>Belgothian's Carnage</option>
-    <option>Blademaster's Talisman</option>
-    <option>Bysmiel's Domination</option>
-    <option>Citadel</option>
-    <option>Dreeg's Affliction</option>
-    <option>Eye of the Storm</option>
-    <option>Iskandra's Balance</option>
-    <option>Malediction</option>
-    <option>Menhir's Bastion</option>
-    <option>Necrosis</option>
-    <option>Nemesis</option>
-    <option>Oblivion</option>
-    <option>Oleron's Wrath</option>
-    <option>Plunderer's Talisman</option>
-    <option>Primal Instinct</option>
-    <option>Reckoning</option>
-    <option>Scourge</option>
-    <option>Solael's Decimation</option>
-    <option>Ulzuin's Pyroclasm</option>
-  </select>
-  <input type="submit" id="convertButton" value="List components" onclick="main()" />
-  <br><br>
-  <div id="output" class="list"></div>
-</div>
-<div class="list">
-<br><br>
-</div>
-<script>
+  <title>GD Relic Recipes</title>
+
+  
+    
+
+
+
+
+<script type='text/javascript'>//<![CDATA[
+
 // -- COPYRIGHT ALEXANDER WIDELL 2016 --
 // v1.0
 
@@ -126,6 +89,7 @@ function main() {
   var componentsList = [];
   var finalComponents = [];
 	var totalCost = 0;
+  var craftingOrder = [];
 
   //Quest Components
   componentsList["Ancient Heart"] = {
@@ -678,31 +642,32 @@ function main() {
     components: ["Blood of Ch'thon", "Blood of Ch'thon", "Blood of Ch'thon", "Desolation", "Slaughter", "Inferno", "Flintcore Bolts", "Focusing Prism"]
   };
 
-  function getRelicComponents(RelicName) { //Takes a name of a relic and returns quantities and objects of all base components, plus cost for crafting
-  	totalCost += componentsList[RelicName].cost; //Adds crafting cost of the current relic
-    for (var i = 0; i < componentsList[RelicName].components.length; i++) { //Iterates for each of the relic's components
-      if (componentsList[componentsList[RelicName].components[i]].type == "relic") { //Fires if the current component is another relic
-        getRelicComponents(componentsList[RelicName].components[i]); //Recursively calls this funtion with the subrelic as argument
+  function getRelicComponents(relicName) { //Takes a name of a relic and returns quantities and objects of all base components, plus cost for crafting
+  	totalCost += componentsList[relicName].cost; //Adds crafting cost of the current relic
+    craftingOrder.unshift(relicName);
+    for (var i = 0; i < componentsList[relicName].components.length; i++) { //Iterates for each of the relic's components
+      if (componentsList[componentsList[relicName].components[i]].type == "relic") { //Fires if the current component is another relic
+        getRelicComponents(componentsList[relicName].components[i]); //Recursively calls this funtion with the subrelic as argument
       }
       var componentAlreadyUsed = false; //Keeps track of whether another of this base component is already in the finalComponents list
       for (var j = 0; j < finalComponents.length; j++) { //Cycles through the components already in the finalComponents list
-        if (componentsList[RelicName].components[i] === finalComponents[j].component) { //Fires if the current component is the same as the on in the list
+        if (componentsList[relicName].components[i] === finalComponents[j].component) { //Fires if the current component is the same as the on in the list
           finalComponents[j].quantity++; //Adds one to the quantity of the current index of the list
           componentAlreadyUsed = true; //Sets the check variable
         }
       }
       if (componentAlreadyUsed == false) { //Fires if the components is a new unique one
         var sortorder;
-        if (componentsList[componentsList[RelicName].components[i]].type === "relic") {sortorder = 1;} // These ifs adds the sortorder to be used when sorting the list
-        if (componentsList[componentsList[RelicName].components[i]].type === "questcomponent") {sortorder = 2;}
-        if (componentsList[componentsList[RelicName].components[i]].type === "rarecomponent") {sortorder = 3;}
-        if (componentsList[componentsList[RelicName].components[i]].type === "commoncomponent") {sortorder = 4;}
-        if (componentsList[componentsList[RelicName].components[i]].type === "weapon") {sortorder = 5;}
+        if (componentsList[componentsList[relicName].components[i]].type === "relic") {sortorder = 1;} // These ifs adds the sortorder to be used when sorting the list
+        if (componentsList[componentsList[relicName].components[i]].type === "questcomponent") {sortorder = 2;}
+        if (componentsList[componentsList[relicName].components[i]].type === "rarecomponent") {sortorder = 3;}
+        if (componentsList[componentsList[relicName].components[i]].type === "commoncomponent") {sortorder = 4;}
+        if (componentsList[componentsList[relicName].components[i]].type === "weapon") {sortorder = 5;}
         finalComponents.push({
           quantity: 1,
-          component: componentsList[RelicName].components[i],
+          component: componentsList[relicName].components[i],
           sortorder: sortorder,
-          type: componentsList[componentsList[RelicName].components[i]].type
+          type: componentsList[componentsList[relicName].components[i]].type
         }); //Adds the current component at the end of the list
       }
     }
@@ -722,21 +687,116 @@ function main() {
       type: "relic"
     }); //Adds the main relic to the top of the list);
 
-    var output = "";
-    for (i = 0; i < finalComponents.length; i++) {
-      output += "<p class=\"" + finalComponents[i].type + "\">"; //Sets the color code for the component
+    var output = "<span>Base components:</span><br>";
+    for (var i = 0; i < finalComponents.length; i++) {
+      output += "<span class=\"" + finalComponents[i].type + "\">"; //Sets the color code for the component
       if (finalComponents[i].type === "relic") {
         output += "Blueprint: Relic - "; // Adds Blueprint text to relics
       } else {
         output += finalComponents[i].quantity + " "; //Adds qunatity to nonrelics
       }
-      output += finalComponents[i].component + "<br></p>"; //Adds component name
+      output += finalComponents[i].component + "<br></span>"; //Adds component name
     }
-    output += "<p class=\"cost\">" + totalCost + " Iron Bits";
-    output += "<br><br><br><br><br><br><br><br><br><br>";
+		output += "<span>" + totalCost + " Iron Bits<br>";
+    output += "<br>";
+    output += "Crafting order:<br></span>";
+    for (var i = 0; i < craftingOrder.length; i++) { //Runs for each relic in the final relic, IE each row in thecrafting order output
+    output += "<span>" + (i+1) + ": </span><span class=\"relic\">" + craftingOrder[i] + "</span><span> = </span>";
+    	for (var j = 0; j < componentsList[craftingOrder[i]].components.length; j++) { // Runs for each component in the current relic (/row)
+      	output += "<span class=\"" + componentsList[componentsList[craftingOrder[i]].components[j]].type + "\">" + componentsList[craftingOrder[i]].components[j] + "</span>";
+        if ((j+1) < componentsList[craftingOrder[i]].components.length) { //Adds a "+" unless the current component is the last one
+        	output += "<span> + </span>"
+        }
+    	}
+      output += "<br>";
+    }
+    output += "<br><br><br>";
+
     document.getElementById('output').innerHTML = output;
   }
 }
-    </script>
-  </body>
+
+//]]> 
+
+</script>
+
+  
+</head>
+
+<body>
+  <div class="main">
+  <span class="cost list">
+    Grim Dawn Relic Tool by KoomZog (c)2016
+  </span><br>
+  <br>
+  <select id="input">
+    <option>-- Select Relic  --</option>
+    <option>-- Empowered Relics --</option>
+    <option>Bladesworn Talisman</option>
+    <option>Calamity</option>
+    <option>Corruption</option>
+    <option>Equilibrium</option>
+    <option>Glacier</option>
+    <option>Guile</option>
+    <option>Gunslinger's Talisman</option>
+    <option>Inferno</option>
+    <option>Mistborn Talisman</option>
+    <option>Rampage</option>
+    <option>Ruination</option>
+    <option>Sanctuary</option>
+    <option>Squall</option>
+    <option>-- Transcendent Relics --</option>
+    <option>Ancestor</option>
+    <option>Arbiter</option>
+    <option>Bladedancer's Talisman</option>
+    <option>Blight</option>
+    <option>Conflagration</option>
+    <option>Deathchill</option>
+    <option>Desolation</option>
+    <option>Fortress</option>
+    <option>Haunt</option>
+    <option>Juggernaut</option>
+    <option>Marauder's Talisman</option>
+    <option>Sacrifice</option>
+    <option>Savage</option>
+    <option>Slaughter</option>
+    <option>Terror</option>
+    <option>Torment</option>
+    <option>Zeal</option>
+    <option>-- Mythical Relics --</option>
+    <option>Aegis</option>
+    <option>Agrivix's Malice</option>
+    <option>Annihilation</option>
+    <option>Avenger</option>
+    <option>Belgothian's Carnage</option>
+    <option>Blademaster's Talisman</option>
+    <option>Bysmiel's Domination</option>
+    <option>Citadel</option>
+    <option>Dreeg's Affliction</option>
+    <option>Eye of the Storm</option>
+    <option>Iskandra's Balance</option>
+    <option>Malediction</option>
+    <option>Menhir's Bastion</option>
+    <option>Necrosis</option>
+    <option>Nemesis</option>
+    <option>Oblivion</option>
+    <option>Oleron's Wrath</option>
+    <option>Plunderer's Talisman</option>
+    <option>Primal Instinct</option>
+    <option>Reckoning</option>
+    <option>Scourge</option>
+    <option>Solael's Decimation</option>
+    <option>Ulzuin's Pyroclasm</option>
+  </select>
+  <input type="submit" id="convertButton" value="List components" onclick="main()" />
+  <br><br>
+  <div id="output" class="list"></div>
+</div>
+<div class="list">
+<br><br>
+</div>
+  
+</body>
+
 </html>
+
